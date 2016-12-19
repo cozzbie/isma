@@ -1,0 +1,48 @@
+<ion-content padding>
+
+    <div (click)="loginModalDismiss()" class="iconic-menu place-left">
+        <ion-icon name="ios-arrow-round-back"></ion-icon>
+    </div>    
+
+    <div *ngIf="loginViewState==0">
+        <form (ngSubmit)="makeCall()" #emailForm="ngForm">
+            <ion-list>
+                <ion-item>
+                    <ion-input 
+                        [(ngModel)]="loginData.phone" 
+                        type="tel" 
+                        name="phone" 
+                        placeholder="Phone Number"></ion-input>
+                </ion-item>
+
+            </ion-list>
+
+            <br>
+            <button ion-button round block [disabled]="!emailForm.form.valid || transacting">Place call</button>
+        </form>
+    </div>
+
+    <div *ngIf="loginViewState==1">
+        <form (ngSubmit)="verifyPhone()" #verifyForm="ngForm">
+
+            <ion-list>
+                <ion-item>
+                    <ion-input 
+                        [(ngModel)]="loginData.pin" 
+                        type="tel" 
+                        name="pin"
+                        maxlength="4"
+                        placeholder=""></ion-input>
+                </ion-item>
+            </ion-list>
+            <div class="text-center">Enter last four digits of number that calls</div>
+
+            <br>
+            <button ion-button round block [disabled]="!verifyForm.form.valid || transacting">Send</button>
+        </form>
+
+        <div padding (click)="makeCall()">Request call again</div>
+    </div>
+
+        
+</ion-content>
